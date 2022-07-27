@@ -14,7 +14,10 @@ const reducer = (state, action) => {
       return action.data;
     }
     case "CREATE": {
-      newState = [action.data, ...state];
+      const newItem = {
+        ...action.data,
+      };
+      newState = [newItem, ...state];
       break;
     }
     case "REMOVE": {
@@ -23,7 +26,7 @@ const reducer = (state, action) => {
     }
     case "EDIT": {
       newState = state.map((it) =>
-        it.id === action.data.id ? { ...action.data } : it
+        it.id === action.data.id ? action.data : it
       );
       break;
     }
@@ -113,7 +116,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/new" element={<New />} />
-              <Route path="/Edit" element={<Edit />} />
+              <Route path="/Edit/:id" element={<Edit />} />
               <Route path="/diary/:id" element={<Diary />} />
             </Routes>
           </div>
